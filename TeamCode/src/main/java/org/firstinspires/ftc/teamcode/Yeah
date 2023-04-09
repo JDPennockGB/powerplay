@@ -1,0 +1,138 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
+
+@TeleOp
+public class M0_TeleOp_ArtemisOne extends LinearOpMode {
+
+    // Declare OpMode members.
+    private ElapsedTime runtime = new ElapsedTime();
+    private DcMotor LF = null, RF = null, LR = null, RR = null;
+    private DcMotor liftMotor = null;
+    private Servo LC, RC, LV, RV;
+
+    @Override
+    public void runOpMode() {
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
+
+        //Motor hardware mapping
+        LF  = hardwareMap.get(DcMotor.class, "lf");
+        RF = hardwareMap.get(DcMotor.class, "rf");
+        LR = hardwareMap.get(DcMotor.class, "lr");
+        RR = hardwareMap.get(DcMotor.class, "rr");
+        liftMotor = hardwareMap.get(DcMotor.class, "lm");
+
+        //Servo hardware mapping
+        LC = hardwareMap.get(Servo.class, "lc");
+        RC = hardwareMap.get(Servo.class, "rc");
+        LV = hardwareMap.get(Servo.class, "lv");
+        RV = hardwareMap.get(Servo.class, "rv");
+
+        //Motor parameters
+        LF.setDirection(DcMotor.Direction.REVERSE);
+        LR.setDirection(DcMotor.Direction.REVERSE);
+        RF.setDirection(DcMotor.Direction.FORWARD);
+        RR.setDirection(DcMotor.Direction.FORWARD);
+        LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        waitForStart();
+        runtime.reset();
+
+        double Level = 0;
+
+        while (opModeIsActive()) {
+
+            //States for lift FSM
+            if (gamepad2.dpad_left){
+                Level = 2;
+            } if (gamepad2.dpad_down){
+                Level = 0;
+            } if (gamepad2.dpad_up){
+                Level = 3;
+            } if (gamepad2.dpad_right){
+                Level = 1;
+            } if (gamepad2.b){
+                Level = 5;
+            } if (gamepad2.a){
+                Level = 4;
+            } if (gamepad2.x){
+                Level = 6;
+            } if (gamepad1.left_bumper){
+                Level = 10;
+            }
+
+
+            //Controls for the drivetrain - Gamepad 1
+            double y = -gamepad1.left_stick_y;
+            double x  =  gamepad1.left_stick_x;
+            double theta = gamepad1.right_stick_x;
+
+            if (gamepad1.left_trigger > 0.2){
+                LF.setPower(Range.clip(y + x + theta,-1, 1) / 2.75);
+                RF.setPower(Range.clip(y - x - theta,-1, 1) / 2.75);
+                LR.setPower(Range.clip(y - x + theta,-1, 1) / 2.75);
+                RR.setPower(Range.clip(y + x - theta,-1, 1) / 2.75);
+            } else {
+                LF.setPower(Range.clip(y + x + theta, -1, 1) / 1.05);
+                RF.setPower(Range.clip(y - x - theta, -1, 1) / 1.05);
+                LR.setPower(Range.clip(y - x + theta, -1, 1) / 1.05);
+                RR.setPower(Range.clip(y + x - theta, -1, 1) / 1.05);
+            }
+
+
+            //Claw controls - Gamepad 1
+            if (gamepad1.a){
+                LC.setPosition(0.38);
+                RC.setPosition(0.33);
+            } if (gamepad1.b){
+                LC.setPosition(0.56);
+                RC.setPosition(0.16);
+            } if (Level == 10){
+                LV.setPosition(0.82);
+                RV.setPosition(0.18);
+            }
+
+
+            //FSM control for lift - Gamepad 2
+            if (Level == 2){
+                liftMotor.setPower((1200 - liftMotor.getCurrentPosition()) * 0.01);
+                LV.setPosition(0.85);
+                RV.setPosition(0.15);
+            } if (Level == 0){
+                liftMotor.setPower((-liftMotor.getCurrentPosition()) * 0.0005);
+                LV.setPosition(0.15);
+                RV.setPosition(0.85);
+            } if (Level == 3){
+                liftMotor.setPower((2200 - liftMotor.getCurrentPosition()) * 0.01);
+                LV.setPosition(0.85);
+                RV.setPosition(0.15);
+            }  if (Level == 1){
+                liftMotor.setPower((-liftMotor.getCurrentPosition()) * 0.0005);
+                LV.setPosition(0.85);
+                RV.setPosition(0.15);
+            } if (Level == 5){
+                LV.setPosition(0.50);
+                RV.setPosition(0.50);
+            } if (Level == 4){
+                LV.setPosition(0.35);
+                RV.setPosition(0.65);
+            } if (Level == 6){
+                LV.setPosition(0.65);
+                RV.setPosition(0.35);
+            }
+        }
+    }
+}
+
+
+
+
