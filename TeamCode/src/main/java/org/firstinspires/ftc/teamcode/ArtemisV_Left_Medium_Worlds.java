@@ -246,7 +246,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
             LV.setPosition(0.3);
             RV.setPosition(0.7);
-            C.setPosition(0.6);
+
             W.setPosition(0.68);
 
             lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -257,7 +257,14 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
             telemetry.addData("Location", pipeline.parkLocation);
             telemetry.update();
+            if (gamepad1.dpad_left) {
 
+                C.setPosition(0.45);
+
+            } else {
+                C.setPosition(0.62);
+
+            }
         }
 
         if (isStopRequested()) return;
