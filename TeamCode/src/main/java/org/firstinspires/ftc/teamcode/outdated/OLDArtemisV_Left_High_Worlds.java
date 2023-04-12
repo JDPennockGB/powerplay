@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.outdated;
 
 import static java.lang.Math.toRadians;
 
@@ -6,18 +6,21 @@ import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.VisionTest;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
+@Disabled
 @Autonomous
-public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
+public class OLDArtemisV_Left_High_Worlds extends LinearOpMode {
 
     //DcMotor lm;
     private DcMotor lift1 = null, lift2 = null, turret = null;
@@ -73,95 +76,94 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
         Pose2d start = new Pose2d(36, 66, toRadians(-90));
 
         Trajectory one = drive.trajectoryBuilder(start)
-                .splineTo(new Vector2d(36, 31), Math.toRadians(-90))
-                .addTemporalMarker(0, () -> LV.setPosition(0.5))
-                .addTemporalMarker(0, () -> RV.setPosition(0.5))
+                .splineTo(new Vector2d(36, 28), Math.toRadians(-90))
+                .addTemporalMarker(1.5, () -> LV.setPosition(0.4))
+                .addTemporalMarker(1.5, () -> RV.setPosition(0.6))
                 .addDisplacementMarker(35, () -> {
-                    liftTarget = 350;
-                    turretTarget = 530;
+                    liftTarget = 730;
+                    turretTarget = -580;
                     liftKp = 0.012;
                 })
-                .splineTo(new Vector2d(31, 12), Math.toRadians(-180))
-                .splineToConstantHeading(new Vector2d(29, 16), Math.toRadians(-180))
+                .splineTo(new Vector2d(27, 14), Math.toRadians(-180))
                 .build();
 
         Trajectory two = drive.trajectoryBuilder(one.end())
-                .lineToLinearHeading(new Pose2d(60, 12, toRadians(-180)))
+                .lineToLinearHeading(new Pose2d(60, 13, toRadians(-180)))
                 .addDisplacementMarker(5, () -> {
-                    liftTarget = 205;
+                    liftTarget = 160;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
-                .addDisplacementMarker(8, () -> LV.setPosition(0.08))
-                .addDisplacementMarker(8, () -> RV.setPosition(0.92))
-                .addDisplacementMarker(4, () -> W.setPosition(0))
+                .addDisplacementMarker(5, () -> LV.setPosition(0.07))
+                .addDisplacementMarker(5, () -> RV.setPosition(0.93))
+                .addDisplacementMarker(5, () -> W.setPosition(0))
                 .build();
 
         Trajectory three = drive.trajectoryBuilder(two.end())
-                .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(34, 13), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
-                    liftTarget = 350;
-                    turretTarget = 530;
+                    liftTarget = 680;
+                    turretTarget = -530;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> RV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> W.setPosition(0.68))
-                .splineToConstantHeading(new Vector2d(28, 16), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(29, 9), Math.toRadians(-180))
                 .build();
 
         Trajectory four = drive.trajectoryBuilder(three.end())
-                .lineToLinearHeading(new Pose2d(60, 12, Math.toRadians(-180)))
+                .lineToLinearHeading(new Pose2d(60, 13, toRadians(-180)))
                 .addDisplacementMarker(5, () -> {
-                    liftTarget = 110;
+                    liftTarget = 90;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
                 .addDisplacementMarker(5, () -> LV.setPosition(0.07))
                 .addDisplacementMarker(5, () -> RV.setPosition(0.93))
-                .addDisplacementMarker(10, () -> W.setPosition(0))
+                .addDisplacementMarker(5, () -> W.setPosition(0))
                 .build();
 
         Trajectory five = drive.trajectoryBuilder(four.end())
-                .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(34, 13), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
-                    liftTarget = 350;
-                    turretTarget = 530;
+                    liftTarget = 680;
+                    turretTarget = -530;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> RV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> W.setPosition(0.68))
-                .splineToConstantHeading(new Vector2d(28, 16), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(29, 9), Math.toRadians(-180))
                 .build();
 
         Trajectory six = drive.trajectoryBuilder(five.end())
-                .lineToLinearHeading(new Pose2d(60, 13, Math.toRadians(-180)))
+                .lineToLinearHeading(new Pose2d(60, 12, toRadians(-180)))
                 .addDisplacementMarker(5, () -> {
-                    liftTarget = 60;
+                    liftTarget = 40;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
                 .addDisplacementMarker(5, () -> LV.setPosition(0.07))
                 .addDisplacementMarker(5, () -> RV.setPosition(0.93))
-                .addDisplacementMarker(10, () -> W.setPosition(0))
+                .addDisplacementMarker(5, () -> W.setPosition(0))
                 .build();
 
         Trajectory seven = drive.trajectoryBuilder(six.end())
-                .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(34, 13), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
-                    liftTarget = 350;
-                    turretTarget = 530;
+                    liftTarget = 680;
+                    turretTarget = -530;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> RV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> W.setPosition(0.68))
-                .splineToConstantHeading(new Vector2d(28, 16), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(29, 9), Math.toRadians(-180))
                 .build();
 
         Trajectory eight = drive.trajectoryBuilder(seven.end())
-                .lineToLinearHeading(new Pose2d(60, 13, Math.toRadians(-180)))
+                .lineToLinearHeading(new Pose2d(60, 12, toRadians(-180)))
                 .addDisplacementMarker(5, () -> {
                     liftTarget = 20;
                     turretTarget = 0;
@@ -169,24 +171,24 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
                 })
                 .addDisplacementMarker(5, () -> LV.setPosition(0.07))
                 .addDisplacementMarker(5, () -> RV.setPosition(0.93))
-                .addDisplacementMarker(10, () -> W.setPosition(0))
+                .addDisplacementMarker(5, () -> W.setPosition(0))
                 .build();
 
         Trajectory nine = drive.trajectoryBuilder(eight.end())
-                .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(34, 13), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
-                    liftTarget = 350;
-                    turretTarget = 565;
+                    liftTarget = 680;
+                    turretTarget = -530;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> RV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> W.setPosition(0.68))
-                .splineToConstantHeading(new Vector2d(28, 16), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(29, 9), Math.toRadians(-180))
                 .build();
 
         Trajectory ten = drive.trajectoryBuilder(nine.end())
-                .lineToLinearHeading(new Pose2d(60, 13, Math.toRadians(-180)))
+                .lineToLinearHeading(new Pose2d(60, 11, toRadians(-180)))
                 .addDisplacementMarker(5, () -> {
                     liftTarget = -100;
                     turretTarget = 0;
@@ -194,62 +196,60 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
                 })
                 .addDisplacementMarker(5, () -> LV.setPosition(0.07))
                 .addDisplacementMarker(5, () -> RV.setPosition(0.93))
-                .addDisplacementMarker(10, () -> W.setPosition(0))
+                .addDisplacementMarker(5, () -> W.setPosition(0))
                 .build();
 
         Trajectory eleven = drive.trajectoryBuilder(ten.end())
-                .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(34, 13), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
-                    liftTarget = 350;
-                    turretTarget = 565;
+                    liftTarget = 680;
+                    turretTarget = -530;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> RV.setPosition(0.5))
                 .addDisplacementMarker(2, () -> W.setPosition(0.68))
-                .splineToConstantHeading(new Vector2d(28, 16), Math.toRadians(-180))
+                .splineToConstantHeading(new Vector2d(29, 9), Math.toRadians(-180))
                 .build();
 
-        Trajectory twelve = drive.trajectoryBuilder(eleven.end())
-                .lineToLinearHeading(new Pose2d(35, 11, toRadians(-180)))
-                .addDisplacementMarker(6, () -> {
+        Trajectory twelve3 = drive.trajectoryBuilder(eleven.end())
+                .lineToLinearHeading(new Pose2d(12, 12, toRadians(-180)))
+                .addDisplacementMarker(3, () -> {
                     liftTarget = -150;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
+                .addTemporalMarker(0.75, () -> LV.setPosition(0))
+                .addTemporalMarker(0.75, () -> RV.setPosition(1))
                 .build();
 
-        Trajectory twelve3 = drive.trajectoryBuilder(twelve.end())
-                .lineToLinearHeading(new Pose2d(65, 17, toRadians(-180)))
-                .addDisplacementMarker(6, () -> {
+        Trajectory twelve2 = drive.trajectoryBuilder(eleven.end())
+                .lineToLinearHeading(new Pose2d(35, 12, toRadians(-180)))
+                .addDisplacementMarker(3, () -> {
                     liftTarget = -150;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
+                .addTemporalMarker(0.75, () -> LV.setPosition(0))
+                .addTemporalMarker(0.75, () -> RV.setPosition(1))
                 .build();
 
-        Trajectory twelve2 = drive.trajectoryBuilder(twelve.end())
-                .lineToLinearHeading(new Pose2d(35, 28, toRadians(-90)))
-                .addDisplacementMarker(6, () -> {
+        Trajectory twelve1 = drive.trajectoryBuilder(eleven.end())
+                .lineToLinearHeading(new Pose2d(58, 12, toRadians(-180)))
+                .addDisplacementMarker(3, () -> {
                     liftTarget = -150;
                     turretTarget = 0;
                     liftKp = 0.002;
                 })
-                .build();
-
-        Trajectory twelve1 = drive.trajectoryBuilder(twelve.end())
-                .lineToLinearHeading(new Pose2d(11, 19, toRadians(-90)))
-                .addDisplacementMarker(6, () -> {
-                    liftTarget = -150;
-                    turretTarget = 0;
-                    liftKp = 0.002;
-                })
+                .addTemporalMarker(0.75, () -> LV.setPosition(0))
+                .addTemporalMarker(0.75, () -> RV.setPosition(1))
                 .build();
 
         while (!isStarted()){
 
             LV.setPosition(0.25);
             RV.setPosition(0.75);
+
             W.setPosition(0.68);
 
             lift1.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -268,7 +268,6 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
                 C.setPosition(0.62);
 
             }
-
         }
 
         if (isStopRequested()) return;
@@ -291,7 +290,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
         RV.setPosition(0.38);
         W.setPosition(0.68);
         sleep(150);
-        C.setPosition(0.45);
+        C.setPosition(0.4);
 
 
         drive.followTrajectoryAsync(two);
@@ -317,7 +316,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
             lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         }
 
-        liftTarget = 250;
+        liftTarget = 450;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         LV.setPosition(0.62);
@@ -349,7 +348,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
             lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         }
 
-        liftTarget = 250;
+        liftTarget = 450;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         LV.setPosition(0.62);
@@ -381,7 +380,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
             lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         }
 
-        liftTarget = 250;
+        liftTarget = 450;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         LV.setPosition(0.62);
@@ -413,7 +412,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
             lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         }
 
-        liftTarget = 250;
+        liftTarget = 450;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -0.001);
         LV.setPosition(0.62);
@@ -447,28 +446,23 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
         sleep(150);
         C.setPosition(0.45);
 
-        drive.followTrajectoryAsync(twelve);
-        while (opModeIsActive() && drive.isBusy()) {
-            drive.update();
-            turret.setPower((turretTarget - turret.getCurrentPosition()) * 0.008);
-            lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
-            lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
-        }
-
-        LV.setPosition(0.32);
-        RV.setPosition(0.68);
-        W.setPosition(0);
-        sleep(150);
-        C.setPosition(0.3);
 
         if (parkingSpot == 1 || parkingSpot == 0){
-            drive.followTrajectoryAsync(twelve3);
+            drive.followTrajectoryAsync(twelve1);
             while (opModeIsActive() && drive.isBusy()) {
                 drive.update();
                 turret.setPower((turretTarget - turret.getCurrentPosition()) * 0.008);
                 lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
                 lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
             }
+            //LV.setPosition(1);
+            //RV.setPosition(0);
+            LV.setPosition(0.35);
+            RV.setPosition(0.65);
+            W.setPosition(0);
+            sleep(150);
+            C.setPosition(0.3);
+
             sleep(5000);
 
         } if (parkingSpot == 2){
@@ -479,16 +473,20 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
                 lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
                 lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
             }
+            LV.setPosition(1);
+            RV.setPosition(0);
             sleep(5000);
 
         } if (parkingSpot == 3){
-            drive.followTrajectoryAsync(twelve1);
+            drive.followTrajectoryAsync(twelve3);
             while (opModeIsActive() && drive.isBusy()) {
                 drive.update();
                 turret.setPower((turretTarget - turret.getCurrentPosition()) * 0.008);
                 lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
                 lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
             }
+            LV.setPosition(1);
+            RV.setPosition(0);
             sleep(5000);
 
         }
