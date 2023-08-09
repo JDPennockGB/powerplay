@@ -76,15 +76,18 @@ public class ArtemisV_Left_One_Drop_High_Worlds extends LinearOpMode {
 
         Trajectory one = drive.trajectoryBuilder(start)
                 .splineTo(new Vector2d(36, 48), Math.toRadians(-90))
-                .addTemporalMarker(0, () -> LV.setPosition(0.5))
-                .addTemporalMarker(0, () -> RV.setPosition(0.5))
+
+                .addTemporalMarker(1, () -> LV.setPosition(0.5))
+                .addTemporalMarker(1, () -> RV.setPosition(0.5))
+
                 .addDisplacementMarker(28, () -> {
                     liftTarget = 680;
                     liftKp = 0.012;
                 })
+
                 .splineTo(new Vector2d(24, 37), Math.toRadians(-180))
-                .splineTo(new Vector2d(20, 37), Math.toRadians(-180))
-                .splineTo(new Vector2d(8, 30), Math.toRadians(-130))
+                .splineTo(new Vector2d(21, 37), Math.toRadians(-180))
+                .splineTo(new Vector2d(8, 28), Math.toRadians(-110))
                 .build();
 
         Trajectory two = drive.trajectoryBuilder(one.end())

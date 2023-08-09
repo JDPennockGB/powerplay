@@ -57,11 +57,11 @@ public class VisionTest extends LinearOpMode {
     public static class SamplePipeline extends OpenCvPipeline {
         private static final Scalar BLUE = new Scalar(0, 0, 255);
 
-        public static int THRESHOLD = 120;
+        public static int THRESHOLD = 114;
         public int parkLocation = 0;
 
-        Point topLeftOne = new Point(124, 150);
-        Point bottomRightOne = new Point(154, 200);
+        Point topLeftOne = new Point(169, 95);
+        Point bottomRightOne = new Point(198, 150);
 
         Mat region1_Cb;
         Mat YCrCb = new Mat();

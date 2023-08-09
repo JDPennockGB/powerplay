@@ -151,7 +151,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
                 .splineToConstantHeading(new Vector2d(32, 11), Math.toRadians(-180))
                 .addDisplacementMarker(2, () -> {
                     liftTarget = 350;
-                    turretTarget = 530;
+                    turretTarget = 565;
                     liftKp = 0.012;
                 })
                 .addDisplacementMarker(2, () -> LV.setPosition(0.5))
@@ -304,7 +304,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
         C.setPosition(0.62);
         sleep(300);
-        liftTarget = 600;
+        liftTarget = 500;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         sleep(220);
@@ -336,7 +336,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
         C.setPosition(0.62);
         sleep(300);
-        liftTarget = 600;
+        liftTarget = 400;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         sleep(220);
@@ -368,7 +368,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
         C.setPosition(0.62);
         sleep(300);
-        liftTarget = 600;
+        liftTarget = 300;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         sleep(220);
@@ -400,7 +400,7 @@ public class ArtemisV_Left_Medium_Worlds extends LinearOpMode {
 
         C.setPosition(0.62);
         sleep(300);
-        liftTarget = 600;
+        liftTarget = 200;
         lift2.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         lift1.setPower((liftTarget - lift1.getCurrentPosition()) * -liftKp);
         sleep(220);

@@ -185,12 +185,11 @@ public class ArtemisV_Worlds_TeleOp extends LinearOpMode {
 
             //Code for Drive1 to Reset Lift and Turret
             if (gamepad1.y) {
-                liftTarget = liftTarget + 25;
-            }
-            if (gamepad1.left_bumper) {
+                liftTarget = liftTarget + 15;
+                liftKp = 0.012;
+            } if (gamepad1.left_bumper) {
                 turretTarget = turretTarget - 15;
-            }
-            if (gamepad1.right_bumper) {
+            } if (gamepad1.right_bumper) {
                 turretTarget = turretTarget + 15;
             }
 
